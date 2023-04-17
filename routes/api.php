@@ -20,18 +20,24 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-
-//  Route::group(['prefix'=> 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function() {
-//      Route::apiResource('products', ProductsController::class);
-//      Route::apiResource('users', UserController::class);
-//      Route::apiResource('carts', ProductInCartController::class);
-//  });
-
-
+//PRODUCT ROUTES// {name->string, description->string, price->float, stock->integer, productImage->string, categoryId->integer}
 Route::get('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@index');
-Route::post('v1/cart', 'App\Http\Controllers\Api\V1\CartController@addProduct');
+Route::post('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@store');
+
+
+//USERS ROUTES// {username->string, email->string, password->string, address->string, phone->string}
 Route::post('v1/users', 'App\Http\Controllers\Api\V1\UserController@store');
+
+
+
+//CART ROUTES// {cartId->integer, productId->integer, quantity->integer} add product to cart
+Route::post('v1/cart', 'App\Http\Controllers\Api\V1\CartController@addProduct');
+
+//CATEGORIES ROUTES// {category->string}
 Route::post('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@store');
+Route::get('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@index');
+
+
 
 
 
