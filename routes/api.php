@@ -31,6 +31,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@index');
 Route::post('v1/cart', 'App\Http\Controllers\Api\V1\CartController@addProduct');
 Route::post('v1/users', 'App\Http\Controllers\Api\V1\UserController@store');
+Route::post('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@store');
+
 
 
 
