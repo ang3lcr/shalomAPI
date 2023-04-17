@@ -27,7 +27,7 @@ Route::post('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@store
 
 //USERS ROUTES// {username->string, email->string, password->string, address->string, phone->string}
 Route::post('v1/users', 'App\Http\Controllers\Api\V1\UserController@store');
-
+Route::get('v1/users', 'App\Http\Controllers\Api\V1\UserController@index');
 
 
 //CART ROUTES// {cartId->integer, productId->integer, quantity->integer} add product to cart
