@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api\V1;
 
 
 use App\Models\Categories;
-use App\Http\Requests\StoreCategoriesRequest;
+use App\Http\Requests\V1\StoreCategoriesRequest;
 use App\Http\Requests\UpdateCategoriesRequest;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\CategoriesResource;
@@ -34,6 +34,11 @@ class CategoriesController extends Controller
     {
         $category = new Categories();
         $category -> category = $request -> input('category');
+
+        return response() -> json([
+            'message' => 'Succesfully created',
+            'categoryCreated' => $category
+        ], 200);
     }
 
     /**
