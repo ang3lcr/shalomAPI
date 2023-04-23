@@ -4,12 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Sanctum\HasApiTokens;
 
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Auth\Authenticatable;
 
-class User extends Model
+                         //CHATGPT           
+class User extends Model implements AuthenticatableContract
 {
     use HasFactory;
+    use HasApiTokens;
 
+
+    //chatgpt
+    use Authenticatable;
 
 
     protected $fillable = [

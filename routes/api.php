@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Api\V1\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,6 +28,9 @@ Route::post('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@store
 //USERS ROUTES// {username->string, email->string, password->string, address->string, phone->string}
 Route::post('v1/users', 'App\Http\Controllers\Api\V1\UserController@store');
 Route::get('v1/users', 'App\Http\Controllers\Api\V1\UserController@index');
+Route::post('v1/users/login', 'App\Http\Controllers\Api\V1\UserController@login');
+
+
 
 
 //CART ROUTES// {cartId->integer, productId->integer, quantity->integer} add product to cart
@@ -38,8 +41,17 @@ Route::post('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@s
 Route::get('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@index');
 
 
+//PURCHASE ROUTES// {orderId}
+Route::post('v1/purchase', 'App\Http\Controllers\Api\V1\PurchaseController@purchaseCart');
 
 
 
 
+
+
+
+/////RUTAS PROTEGIDAS\\\\\\\\
+Route::middleware(['auth:sanctum'])->group(function () {
+   Route::get('v1/users/logout', [UserController::class, 'logout']);
+});
 

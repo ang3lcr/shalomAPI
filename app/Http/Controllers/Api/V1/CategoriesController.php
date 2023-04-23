@@ -34,6 +34,7 @@ class CategoriesController extends Controller
     {
         $category = new Categories();
         $category -> category = $request -> input('category');
+        $category -> save();
 
         return response() -> json([
             'message' => 'Succesfully created',
