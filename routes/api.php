@@ -22,7 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 //PRODUCT ROUTES// {name->string, description->string, price->float, stock->integer, productImage->string, categoryId->integer}
 Route::get('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@index');
-Route::post('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@store');
 
 
 //USERS ROUTES// {username->string, email->string, password->string, address->string, phone->string}
@@ -40,18 +39,11 @@ Route::post('v1/cart', 'App\Http\Controllers\Api\V1\CartController@addProduct');
 Route::post('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@store');
 Route::get('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@index');
 
-
-//PURCHASE ROUTES// {orderId}
-Route::post('v1/purchase', 'App\Http\Controllers\Api\V1\PurchaseController@purchaseCart');
-
-
-
-
-
-
-
 /////RUTAS PROTEGIDAS\\\\\\\\
 Route::middleware(['auth:sanctum'])->group(function () {
-   Route::get('v1/users/logout', [UserController::class, 'logout']);
+    Route::post('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@store');
+    Route::get('v1/users/logout', [UserController::class, 'logout']);
+    //PURCHASE ROUTES// {orderId}
+    Route::post('v1/purchase', 'App\Http\Controllers\Api\V1\PurchaseController@purchaseCart');
 });
 
