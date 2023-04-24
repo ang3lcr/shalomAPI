@@ -39,9 +39,12 @@ Route::post('v1/cart', 'App\Http\Controllers\Api\V1\CartController@addProduct');
 Route::post('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@store');
 Route::get('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@index');
 
+
+
+Route::post('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@store');
+
 /////RUTAS PROTEGIDAS\\\\\\\\
 Route::middleware(['auth:sanctum'])->group(function () {
-    Route::post('v1/products', 'App\Http\Controllers\Api\V1\ProductsController@store');
     Route::get('v1/users/logout', [UserController::class, 'logout']);
     //PURCHASE ROUTES// {orderId}
     Route::post('v1/purchase', 'App\Http\Controllers\Api\V1\PurchaseController@purchaseCart');
