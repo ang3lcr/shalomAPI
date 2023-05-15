@@ -48,7 +48,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('v1/users/logout', [UserController::class, 'logout']);
     //PURCHASE ROUTES// {orderId}
     Route::post('v1/purchase', 'App\Http\Controllers\Api\V1\PurchaseController@purchaseCart');
-    Route::get('v1/cart', 'App\Http\Controllers\Api\V1\CartController@getProductsInCart');
+    Route::post('v1/cart', 'App\Http\Controllers\Api\V1\CartController@getProductsInCart');
 
     
 });
