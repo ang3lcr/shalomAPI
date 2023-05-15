@@ -107,8 +107,20 @@ public function addProduct(Request $request) {
 
 
 
+    //userId
+    public function getProductsInCart(Request $request) {
+        $cartId = Cart::where('user_id', $request->input('UserId'))->first()->id;
+        //id, userId, productId, 
+        $products = ProductsInCart::where('cart_id', $cartId)->get();
 
-
+        return response() -> json([
+            'message'=> 'Succesfully response',
+            'products'=> $products,
+        ], 200);
+    
+    
+    
+    }
 
 
     /**
