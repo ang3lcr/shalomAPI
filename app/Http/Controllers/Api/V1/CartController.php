@@ -110,16 +110,17 @@ public function addProduct(Request $request) {
     //userId
     public function getProductsInCart(Request $request) {
         $cartId = Cart::where('user_id', $request->input('userId'))->first()->id;
-        //id, userId, productId, 
-        $products = ProductsInCart::where('cart_id', $cartId)->get();
-
-        return response() -> json([
-            'message'=> 'Succesfully response',
-            'products'=> $products,
+        $productsInCart = ProductsInCart::where('cart_id', $cartId)->get();
+    
+        $productsInCartIds = $productInCart::pluck('product_id');
+       
+        $products = Products::whereIn('id', $productsInCartIds) -> get();
+    
+        return reponse() -> json([
+            "message" => "Success",
+            "productsInCart" => $products
         ], 200);
-    
-    
-    
+
     }
 
 
