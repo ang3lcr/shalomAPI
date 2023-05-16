@@ -109,24 +109,51 @@ public function addProduct(Request $request) {
 
     //userId
     public function getProductsInCart(Request $request) {
+        // $cartId = Cart::where('user_id', $request->input('userId'))->first()->id;
+    
+        // $productsInCart = ProductsInCart::where('cart_id', $cartId)
+        //     ->with('products') // Carga la relación con el modelo Product
+        //     ->get();
+    
+        // $products = $productsInCart->map(function ($item) {
+        //     $product = $item->product;
+        //     $product->quantity = $item->quantity;
+        //     $product->subTotal = $item->sub_total;
+        //     return $product;
+        // });
+    
+        // return response()->json([
+        //     "message" => "Success",
+        //     "productsInCart" => $products
+        // ], 200);
+
         $cartId = Cart::where('user_id', $request->input('userId'))->first()->id;
-    
-        $productsInCart = ProductsInCart::where('cart_id', $cartId)
-            ->with('products') // Carga la relación con el modelo Product
-            ->get();
-    
-        $products = $productsInCart->map(function ($item) {
-            $product = $item->product;
-            $product->quantity = $item->quantity;
-            $product->subTotal = $item->sub_total;
-            return $product;
-        });
-    
+        $productsInCart = ProductsInCart::where('cart_id', $cartId)->get();
+        
+        $cartProducts = [];
+        
+        foreach ($productsInCart as $item) {
+            $product = Products::find($item->product_id);
+            
+            if ($product) {
+                $cartProducts[] = [
+                    'product' => $product,
+                    'quantity' => $item->quantity,
+                    'sub_total' => $item->sub_total,
+                ];
+            }
+        }
+        
         return response()->json([
             "message" => "Success",
-            "productsInCart" => $products
-        ], 200);
+            "products" => $cartProducts]);
     }
+
+
+
+
+
+    
 
 
     /**
