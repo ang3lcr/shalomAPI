@@ -18,21 +18,36 @@ class PurchaseController extends Controller
         //{userId}
         
         public function purchaseCart(Request $request) {
-            $userId = $request -> input('userId');
-            $user = User::where('id', $userId) -> firstOrFail();
-            $order = Order::where('user_id', $userId) -> where('is_completed', false) -> firstOrFail();
+            $userId = $request->input('userId');
+            $user = User::findOrFail($userId);
+            $order = Order::where('user_id', $userId)->where('is_completed', false)->first();
+        
+            if ($order) {
+                $order->is_completed = true;
+                $order->save();
+                $cart = Cart::where('user_id', $userId)->firstOrFail();
+                ProductsInCart::where('cart_id', $cart->id)->delete();
+        
+                return response()->json([
+                    'message' => 'Purchase Completed :)',
+                    'order' => $order
+                ], 200);
+            } else {
+                $newOrder = Order::create([
+                    'user_id' => $userId,
+                    'is_completed' => true,
+                ]);
+        
+                return response()->json([
+                    'message' => 'New order created with status true :)',
+                    'order' => $newOrder
+                ], 200);
+            }
+            
 
-            $order -> is_completed = true;
-            $order -> save();
+            
 
-            $cart = Cart::where('user_id', $userId) -> firstOrFail();
-
-            $products = ProductsInCart::where('cart_id', $cart -> id) -> delete();
            
-            return response() -> json([
-                'message' => 'Purchase Completed :)',
-            ], 200);
-
 
         }
 }
