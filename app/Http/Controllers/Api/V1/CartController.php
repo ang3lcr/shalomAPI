@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Models\Cart;
 use App\Models\Products;
 use App\Models\ProductsInCart;
+use App\Models\ProductsInOrder;
 use App\Models\Order;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\V1\ProductResource;
@@ -36,6 +37,8 @@ public function addProduct(Request $request) {
 
         // Verificar si el producto ya existe en el carrito
         $productInCart = ProductsInCart::where('cart_id', $cart->id)->where('product_id', $product->id)->first();
+        
+      
     
         if ($productInCart) {
             // Si el producto ya existe, actualizar la cantidad y el sub_total
@@ -58,6 +61,7 @@ public function addProduct(Request $request) {
             $productInCart->save();
         }
      
+        
         
         return response()->json(['message' => 'Product added to cart successfully'], 200);
 
@@ -109,24 +113,7 @@ public function addProduct(Request $request) {
 
     //userId
     public function getProductsInCart(Request $request) {
-        // $cartId = Cart::where('user_id', $request->input('userId'))->first()->id;
-    
-        // $productsInCart = ProductsInCart::where('cart_id', $cartId)
-        //     ->with('products') // Carga la relación con el modelo Product
-        //     ->get();
-    
-        // $products = $productsInCart->map(function ($item) {
-        //     $product = $item->product;
-        //     $product->quantity = $item->quantity;
-        //     $product->subTotal = $item->sub_total;
-        //     return $product;
-        // });
-    
-        // return response()->json([
-        //     "message" => "Success",
-        //     "productsInCart" => $products
-        // ], 200);
-
+ 
         $cartId = Cart::where('user_id', $request->input('userId'))->first()->id;
         $productsInCart = ProductsInCart::where('cart_id', $cartId)->get();
         
