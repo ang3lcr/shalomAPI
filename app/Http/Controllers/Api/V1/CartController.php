@@ -144,6 +144,11 @@ public function addProduct(Request $request) {
         $productInCart -> quantity -= 1;
         $productInCart -> save();
 
+        if ($productInCart -> quantity < 1) {
+            $productInCart -> delete();
+        }
+
+
         return response() -> json([
             "message" => "Response succes",
         ]);
