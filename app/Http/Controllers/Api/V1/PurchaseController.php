@@ -19,7 +19,7 @@ class PurchaseController extends Controller
         
         public function purchaseCart(Request $request) {
 
-                $cart = Cart::where('user_id', $request->input($userId))->firstOrFail();
+                $cart = Cart::where('user_id', $request->input("userId"))->firstOrFail();
                 ProductsInCart::where('cart_id', $cart->id)->delete();
         
                 return response()->json([
