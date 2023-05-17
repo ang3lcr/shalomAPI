@@ -35,6 +35,11 @@ Route::post('v1/users/login', 'App\Http\Controllers\Api\V1\UserController@login'
 //CART ROUTES// {cartId->integer, productId->integer, quantity->integer} add product to cart
 Route::post('v1/cart/addToCart', 'App\Http\Controllers\Api\V1\CartController@addProduct');
 
+
+//userId, productId
+Route::post('v1/cart/remove', 'App\Http\Controllers\Api\V1\CartController@removeFromCart');
+
+
 //CATEGORIES ROUTES// {category->string}
 Route::post('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@store');
 Route::get('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@index');

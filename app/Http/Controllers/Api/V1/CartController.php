@@ -136,7 +136,18 @@ public function addProduct(Request $request) {
             "products" => $cartProducts]);
     }
 
+    //userId, productId, 
+    public function removeFromCart(Request $request) {
+        $cartId = Cart::where('user_id', $request->input('userId'))->first()->id;
+        $productInCart = ProductsInCart::where('product_id', $resquest->input("productId"))->firstOrFail();
+        
+        $productInCart -> quantity -= 1;
+        $productInCart -> save();
 
+        return response() -> json([
+            "message" => "Response succes",
+        ]);
+    }
 
 
 
