@@ -33,7 +33,7 @@ Route::post('v1/users/login', 'App\Http\Controllers\Api\V1\UserController@login'
 
 
 //CART ROUTES// {cartId->integer, productId->integer, quantity->integer} add product to cart
-Route::post('v1/cart', 'App\Http\Controllers\Api\V1\CartController@addProduct');
+Route::post('v1/cart/addToCart', 'App\Http\Controllers\Api\V1\CartController@addProduct');
 
 //CATEGORIES ROUTES// {category->string}
 Route::post('v1/categories', 'App\Http\Controllers\Api\V1\CategoriesController@store');
